@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container text-left">
+        <h1 class="display-4">글쓰기</h1>
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            <div class="form-group input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="id_subject">과목</label>
+                </div>
+                <select name="subject" class="custom-select col-sm-3" id="id_subject">
+                    <option selected>선택...</option>
+                    {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.subject }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_goodPoint">좋았던 점</label>
+                <textarea name="goodPoint" class="form-control" required id="id_goodPoint" rows="5" placeholder="..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="id_improvingPoint">개선되었으면 하는 점</label>
+                <textarea name="improvingPoint" class="form-control" required id="id_improvingPoint" rows="5" placeholder="..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="id_anotherPoint">하고싶은 말</label>
+                <textarea name="anotherPoint" class="form-control" required id="id_anotherPoint" rows="5" placeholder="..."></textarea>
+            </div>
+            <button type="submit" class="save btn btn-dark" style="margin-bottom: 1em">제출</button>
+        </form>
+    </div>
+{% endblock %}

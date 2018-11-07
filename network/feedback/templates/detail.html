@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <h1 class="display-4">{{ post }}님의 게시글</h1>
+        <br>
+        <div class="content">
+            <h4 class="category">과목: {{ post.subject }}</h4>
+            <h4 class="num_of_likes">좋아요 개수:{{ post.numOfLike}}</h4>
+            <hr>
+            <h5>좋았던 점</h5>
+            <p class="description">{{ post.goodPoint|linebreaksbr }}</p>
+            <h5>개선되었으면 하는 점</h5>
+            <p class="description">{{ post.improvingPoint|linebreaksbr }}</p>
+            <h5>제안할 점</h5>
+            <p class="description">{{ post.anotherPoint|linebreaksbr }}</p>
+            <hr>
+        </div>
+        <h1 class="display-4">댓글</h1>
+        <hr>
+        {% for comment in comments %}
+            <div class="content">
+                <h6 class="title">{{ comment.user }}님의 댓글</h6>
+                <p class="created_time" style="color:gray;font-size:0.8rem;">{{ comment.created_date }}</p>
+                <p class="description">{{ comment|linebreaksbr }}</p>
+                <hr>
+            </div>
+        {% endfor %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="commentDesc" class="form-control" required id="id_commentDesc" rows="3" placeholder="댓글 달기..."></textarea>
+                </div>
+                {% if user.is_authenticated %}
+                    <button type="submit" class="btn btn-dark">게시</button>
+                </form>
+                {% else %}
+                </form>
+                <button class="btn btn-dark" data-toggle="modal" data-target="#loginModal">게시</button>
+                {% endif %}
+    {% endfor %}
+{% endblock %}

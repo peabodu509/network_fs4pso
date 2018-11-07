@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center">올라온 피드백을 확인해 보세요.</h1>
+    <div class="masonry-container">
+        {% for post in posts %}
+            <div class="card-box col-md-4 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <h6 class="category">{{ post.subject }}</h6>
+                        <h4 class="title"><a href="/detail/{{ post.id }}">{{ post }}</a></h4>
+                        <hr>
+                        <h5>좋았던 점</h5>
+                        <p class="description">{{ post.goodPoint|linebreaksbr }}</p>
+                        <h5>개선되었으면 하는 점</h5>
+                        <p class="description">{{ post.improvingPoint|linebreaksbr }}</p>
+                        <h5>제안할 점</h5>
+                        <p class="description">{{ post.anotherPoint|linebreaksbr }}</p>
+                        <hr>
+                        <a href="/detail/{{post.id}}/"><button type="button" class="btn btn-dark bth-round">더보기</button></a>
+                        <hr>
+                        <div class="footer btn-center">
+                            {% if user.is_authenticated %}
+                                <a href="/likes/{{post.id}}/"><button type="submit" class="btn btn-dark btn-round">좋아요 {{ post.numOfLike }}</button></a>
+                            {% else %}
+                                <button type="button" class="btn btn-dark btn-round" data-toggle="modal" data-target="#loginModal">좋아요 {{ post.numOfLike }}</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div> <!-- end card -->
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

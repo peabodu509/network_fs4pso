@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container text-left">
+        <h1 class="display-4">회원 가입</h1>
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_username"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" name="username" maxlength="150" autofocus required class="form-control" aria-describedby="help_username" id="id_username" placeholder="Username">
+                </div>
+                <small id="help_username" class="form-text text-muted">필수사항 입니다. 150자 이내로 입력하여 주십시오. 알파벳, 숫자와 @/./+/-/_ 기호만 입력 가능합니다.</small>
+                <hr>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_first_name"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" name="first_name" maxlength="30" required class="form-control" aria-describedby="help_first_name" id="id_first_name" placeholder="First name">
+                </div>
+                <small id="help_first_name" class="form-text text-muted">선택사항 입니다.</small>
+                <hr>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_last_name"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" name="last_name" maxlength="30" required class="form-control" aria-describedby="help_last_name" id="id_last_name" placeholder="Last name">
+                </div>
+                <small id="help_last_name" class="form-text text-muted">선택사항 입니다.</small>
+                <hr>
+                <div class="form-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_email"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <input type="email" name="email" maxlength="254" class="form-control" id="id_email" aria-describedby="help_email" placeholder="example@example.com">
+                </div>
+                <small id="help_email" class="form-text text-muted">비밀번호 찾기에 사용되므로 유효한 이메일 주소를 정확하게 입력하여 주십시오.</small>
+                <hr>
+                <div class="form-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_password1"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <input type="password" name="password1" required class="form-control" aria-describedly="id_password1" id="id_password1" placeholder="Password">
+                </div>
+                <small id="id_password1" class="form-text text-muted">다른 정보와 비슷한 비밀번호를 사용하지 마십시오.<br>8자 이상이 되어야 합니다.<br>흔한 비밀번호는 사용되지 않아야 합니다.<br>번호만을 사용할 수 없습니다.</small>
+                <hr>
+                <div class="form-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="id_password2"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <input type="password" name="password2" required class="form-control" aria-describedly="id_password2" id="id_password2" placeholder="Password confirmation">
+                </div>
+                <small id="id_password2" class="form-text text-muted">확인을 위해 한번 더 입력하여 주시기 바랍니다.</small>
+                <hr>
+            <button type="submit" class="btn btn-dark"> 완료 </button>
+        </form>
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Lff0HgUAAAAADMK1_9BZlFIWv5sn1VcWHqkwXr5', {action: 'action_name'})
+            .then(function(token) {
+                // Verify the token on the server.
+                });
+            });
+        </script>
+        <br>
+    </div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback Site | Main Page</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap-4.0.0.css' %}" rel="stylesheet">
+    <link href="{% static 'css/hipster_cards.css' %}" rel="stylesheet"/> 
+
+    <!--     Fonts and icons     -->
+    <link href="{% static 'css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />  
+    <link href='http://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        .card{
+            margin-bottom: 70px;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js?render=6Lff0HgUAAAAADMK1_9BZlFIWv5sn1VcWHqkwXr5'></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+       <a class="navbar-brand" href="/">Feedback Site</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+             <li class="nav-item">
+              {% if user.is_authenticated %}
+                <a href="/write/"{% if request.path == '/write/'%} class="nav-link active" {% else %} class="nav-link" {% endif %}>글쓰기</a>
+              {% else %}
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">글쓰기</a>
+              {% endif %}
+             </li>
+             <li class="nav-item dropdown">
+                <a href="#" {% if request.path == '/'%} class="nav-link dropdown-toggle active" {% else %} class="nav-link dropdown-toggle" {% endif %} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                과목
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for subject in subjects %}
+                    <a class="dropdown-item" href="/subject/{{ subject.id }}">{{ subject.subject }}</a>
+                  {% endfor %}
+                </div>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link disabled" href="#">정렬 (준비중!)</a>
+             </li>
+          </ul>
+		   <div class="btn-toolbar" role="toolbar" aria-label="userSection">
+        {% if user.is_authenticated %}
+          <div class="navbar-text mr-2 text-light">
+            안녕하세요, {{ user.username }}.
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="logoutSection">
+            <a href="{% url 'logout' %}"><button type="button" class="btn btn-light">로그아웃</button></a>
+          </div>
+        {% else %}
+          <div class="btn-group mr-2" role="group" aria-label="loginSection">
+            <a href="{% url 'login' %}"><button type="button" class="btn btn-light">로그인</button></a>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="signupSection">
+            <a href="/terms/"><button type="button" class="btn btn-light">회원가입</button></a>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    </nav>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">오류!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>로그인 후 이용할 수 있습니다.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            <a href="{% url 'login' %}"><button type="button" class="btn btn-primary">로그인</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="padding-top: 100px">
+      {% block content %}
+      {% endblock %}
+      <br>
+      <hr>
+      <div class="row">
+        <div class="text-center col-lg-6 offset-lg-3">
+            <h4>Footer</h4>
+            <p>Copyright &copy; 2018 &middot; PSO from Ewoo School</p>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-4.0.0.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"></script>
+    <script src="{% static 'js/hipster-cards.js' %}"></script>
+    <script>
+        $().ready(function(){
+            var $container = $('.masonry-container');
+              doc_width = $(document).width();
+              if (doc_width >= 768){
+                  $container.masonry({
+                      itemSelector        : '.card-box',
+                      columnWidth         : '.card-box',
+                      transitionDuration  : 0
+                  });   
+              } else {
+                  $('.mas-container').removeClass('mas-container').addClass('row');
+              }            
+        });
+    </script>
+  </body>
+</html>
