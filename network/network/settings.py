@@ -25,7 +25,7 @@ SECRET_KEY = '$mb1!ri-m16!-)h5y9@x4ms$k^vc#-zh1je$9e^8a$pio3(hk9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['feedback.2woo.net','127.0.0.1','ec2-52-78-137-173.ap-northeast-2.compute.amazonaws.com']
 
 
 # Application definition
@@ -119,6 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

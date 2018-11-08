@@ -16,9 +16,9 @@
                         <p class="description">{{ post.improvingPoint|linebreaksbr }}</p>
                         <h5>제안할 점</h5>
                         <p class="description">{{ post.anotherPoint|linebreaksbr }}</p>
-                        <hr>
-                        <a href="/detail/{{post.id}}/"><button type="button" class="btn btn-dark bth-round">더보기</button></a>
-                        <hr>
+                       <!-- <hr>
+                       <a href="/detail/{{post.id}}/"><button type="button" class="btn btn-dark bth-round">더보기</button></a> 
+                        <hr> -->
                         <div class="footer btn-center">
                             {% if user.is_authenticated %}
                                 <a href="/likes/{{post.id}}/"><button type="submit" class="btn btn-dark btn-round">좋아요 {{ post.numOfLike }}</button></a>
